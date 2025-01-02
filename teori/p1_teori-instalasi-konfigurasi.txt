@@ -1,0 +1,53 @@
+=== LARAVEL ===
+
+Instalasi Laragon:
+-> download php terbaru 8.4.2 (01/01/25) threads safe yg zip pada laragon
+-> download nodejs terbaru 22.12.0 (01/01/25) binaries yg zip pada laragon
+-> download composer terbaru 2.8.4 (01/01/25) dan install pada laragon
+
+keuntungan laragon:
+-> mudah untuk ganti versi php, nodejs dll
+-> one click buat projek baru laravel, cms/wordpress
+-> one click menampilkan web laravel (tanpa php artisan serve)
+-> menyimpan projek menggunakan laragon ada pada folder 'www'
+-> sudah terinstal web server apache dan ngingx
+-> sudah terinstal database server MySQL
+
+konfigurasi laragon:
+-> pindahkan & extraxt hasil download php terbaru yg berbentuk zip di folder laragon>bin>php
+--> cek php version di terminal laragon 'php -v'
+-> pindahkan & extraxt hasil download nodejs terbaru yg berbentuk zip di folder laragon>bin>php
+--> cek nodejs version di terminal laragon 'node -v'
+-> install composer pada directory laragon>bin>php>versi php anda>php.exe
+--> cek composer version di terminal laragon 'composer -v'
+-> jalankkan ekstensi sqlite agar laragon bisa terkoneksi dengan database sqlite
+--> klik kanan pada laragon>extensions>ceklis pdo_sqlite>ceklis sqlite
+-> jalankkan ekstensi zip agar file/package pada composer ketika ingin membuat projek baru menggunakan laragon (tidak manual) akan ter-ekstrak otomatis
+--> klik kanan pada laragon>extensions>ceklis zip
+
+instalasi laravel manual:
+-> pilih directory 'www'
+-> ketik 'composer create-project laravel/laravel:^11.0 example-app' pada cmd/gitbash/terminal -->arahkan directory 'www'
+-->jika :^11.0 dihilangkkan maka install laravel terbaru
+-> pilih directory 'nama projek kalian'
+--> ketik 'php artisan serve' untuk menjalankan projek laravel
+
+instalasi laravel menggunakan laragon:
+-> jalankan laragon klik 'jalankan semua'
+-> klik kanan pada laragon quickapp>laravel
+-> ketik nama projek dan klik ok
+-> klik kanan pada laragon www>'nama projek kalian' untuk menjalankan projek laravel
+
+instalasi herd:
+-> langsung download herd pada website resmi nya
+--> *masih error nodejs version nya
+
+kentungungan herd:
+-> sudah terinstal php versi dan node js terbaru
+-> install php dan nodejs versi terbaru tidak perlu ke web, tinggal pilih di herd dan install 
+-> mudah untuk ganti versi php, nodejs dll
+-> one click buat projek baru laravel, cms/wordpress
+-> one click menampilkan web laravel (tanpa php artisan serve)
+-> menyimpan projek menggunakan laragon ada pada folder 'www'
+-> sudah terinstal web server apache dan ngingx
+-> sudah terinstal database server MySQL
