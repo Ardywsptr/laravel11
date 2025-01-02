@@ -1,0 +1,45 @@
+=== LARAVEL ===
+
+basic laravel:
+-> stuktur folders -> fungsi dari setiap folder, folder yang bisa dimodifikasi dan tidak
+-> route -> bagaimana laravel bisa melakukan penjaluran di dalam aplikasi nya
+-> view -> bagaimana laravel menampilkan halaman sehingga dilihat oleh user
+
+Root directory (folder paling luar):
+-> app, bootstrap, config, database, public, resources, routes, storage, tests, vendor
+
+App directory (folder untuk menyimpan kode dari aplikasi):
+->broadcasting, console,events, exceptions, http, controller (sering), jobs, listeners, mail, models (sering), notifications, policies, providers, rules
+
+boostrap directory -> folder untuk menyimpan file entry point app.php -> memanggil routes, middleware, exceptions dll
+
+config directory -> folder untuk menyimpan file untuk konfigurasi aplikasi -> konfigurasi di config bisa di timpa/everride menggunakan file .env -> yg biasa di ganti adalah konfigrasi database db_connection
+
+database>migration directory -> folder untuk schema database sehingga bisa membuat table database menggunakan migration (tidak manual)
+
+database>factories directory -> folder untuk generate isi tabel, jika ingin membuat data dummy secara manual
+
+database>seeders directory -> folder untuk generate isi tabel, jika ingin membuat data dummy secara otomatis
+
+
+public -> folder yang akan di akses secara public seperti gambar, javascript dan css yang sudah di bundling
+
+resources -> folder untuk menyimpan views, js murni, css murni
+
+routes -> folder yg menyimpan file-file yang bertugas untuk rute atau penjaluran, ada console dan web(sering dipakai) -> jika ada request yang datang ke aplikasi laravel kita maka file web lah yang bertugas nge jalur -> file web bisa mengakses data atau controller
+
+storage -> folder untuk menyimpan logs, template blades, sessions, cache dan file2 lain yang di generate oleh framework
+
+tests -> folder untuk menyimpan file2 yang berhubungan dengan testing
+
+vendor -> folder untuk menyimpan package/library third-party yang disimpan oleh composer atau nodejs.
+
+
+folder yang sering dimodifikasi :
+routes, views, database, app
+
+
+laravel framework MVC:
+Model -> app>models>file model
+View -> resources>views>file view
+Controller -> app>http>controller>file controller
