@@ -1,0 +1,46 @@
+=== LARAVEL ===
+
+Blade templating engine -> mesin templating untuk menghias atau mengelola struktur halaman menggunakan sesuatu yang disebut blade
+
+Download tailwind pada laravel:
+- buka link https://tailwindcss.com/docs/guides/laravel *pilih install menggunakan framework laravel
+- install tailwind : npm install -D tailwindcss postcss autoprefixer
+- buat file config dengan ketik: npx tailwindcss init -p
+- konfigurasi tailwind :
+    /** @type {import('tailwindcss').Config} */
+  export default {
+    content: [
+      "./resources/**/*.blade.php",
+      "./resources/**/*.js",
+      "./resources/**/*.vue",
+    ],
+    theme: {
+      extend: {},
+    },
+    plugins: [],
+  }
+- tambahkan directives tailwind ke dalam file ./resources/css/app.css :
+  @tailwind base;
+  @tailwind components;
+  @tailwind utilities;
+- start build tailwind : npm run dev
+- tambahkan kompilasi css pada <head> :   @vite('resources/css/app.css')
+- tambahkan font pada <head> : <link rel="stylesheet" href="https://rsms.me/inter/inter.css">
+- tambahkan konfigurasi font-family:
+  module.exports = {
+    theme: {
+      extend: {
+        fontFamily: {
+          sans: ['InterVariable', ...defaultTheme.fontFamily.sans],
+        },
+      },
+    },
+    // ...
+  }
+
+Gunakan tailwind ui
+
+Aktifkan js pada tailwind ui menggunakan alpine:
+- dokumentasi alpine js pada link: https://alpinejs.dev/essentials/installation
+- pada <head> tambahkan <script> alpine : <script defer src="https://cdn.jsdelivr.net/npm/alpinejs@3.x.x/dist/cdn.min.js"></script>
+- modifikasi sesuai dgn komentar yang ada
