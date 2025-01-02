@@ -1,0 +1,65 @@
+=== LARAVEL ===
+
+pre-requisite (syarat dasar belajar laravel) :
+- PHP dasar = gimana cara menggunakan bahasa php, gimana cara menjalankan aplikasi php, bagaimana sintaks php, bagaimana menulis variabel, bagaimana menulis pengkondisian dan pengulangan, array, Object, bagaimana php terkoneksi dengan database
+- OOP = bagaimana konsep penerapan OOP pada PHP
+- MVC = bagaimana konsep MVC, definisi dan menerapkan MVC pada PHP
+
+
+requirement :
+- PHP 8.2
+- MySQL
+- Composer
+- web serv (apache / nginx) -> laragon/xampp
+- nodejs
+- SequelPro / MySQL Workbench
+- TablePlus
+- Teminal/CMD/PowerShell/GitBash
+- code editor
+- extensions : PHP Intelephense, PHP namespace resolver, Laravel Artisan, Laravel Snippets, Laravel Blade Snippets, Laravel Blade formatter, Laravel Blade Spacer, Laravel extra intellisense, laravel GoTo View, 
+
+
+pengertian :
+laravel is a web application framework with expressive,elegant syntax
+laravel merupakan framework php untuk membuat website dengan syntax yang expressive dan elegant.
+
+
+web application framework
+- sebuah "kerangka" yang didesain untuk mendukung pembangunan aplikasi web
+- menyediakan standar/cara untuk membangun aplikasi web
+- bertujuan untuk mengotomasi hal-hal umum yang biasanya dilakukan saat membangun aplikasi web
+- contohnya : database library, templating engine, session management, authentication, security, dll
+
+laravel :
+- dibuat oleh Taylor Otwell
+- juni 2011
+- sebagai alternatif framework bahasa pemrograman PHP selain codeigniter
+
+filosofi laravel :
+we believe development must be an anjoyable, vreative experience to be truly fulfiling
+kita percaya bahwa proses pengembangan aplikasi harus bisa di nikmati dan juga bisa mejadi pengalaman yang kreatif yang bisa membuat kepuasan dan kebahagian
+
+tujuan laravel :
+laravel aims to make the development process a pleasing one for the developer without sacrificing application functionality. Happy developers make the best code.
+untuk membuat proses pengembangan bisa dinikmati tanpa harus mengorbankan fungsionalitas aplikasi nya, karena jika developer nya senang maka code yang dibuat pasti yang terbaik
+
+
+fitur utama pada laravel :
+- Model View Controller (MVC) = model untuk mengelola data, view untuk mengelola UI nya dan Controller untuk mengelola prosess nya
+- Templating Engine
+- Artisan Console = fitur dimana kita bisa melakukan modifikasi atau konfigurasi terhadap framework hanya dengan mengetikan barisan-barisan perintah di konsol nya.
+- Eloquent ORM (Object Relasional Mapping) = fitur yang mempermudah untuk ketika ingin berinteraksi dengan database yang relasional seperti MySQL 
+- Authentication & Authorization = fitur yang dibutuhkan ketika igin membuat fitur login dan registrasi
+- testing
+- packaging system
+- multiple file system
+- task scheduling
+- websocket programming
+
+
+ekosistem laravel : ketika ingin menggunakan layanan ataupun fitur apapun laravel mempunyai itu. contoh :
+- vapor, forge, envoyer, horizon, nova, echo, lumen, sail, spark,
+- valet, mix, cashier, dusk, sanctum, scout, socialite, telescope, jetsrream
+
+
+website yang di buat dengan laravel silahkan cek di : awwwards.com/websites/laravel
