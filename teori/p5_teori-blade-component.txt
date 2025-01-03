@@ -1,0 +1,42 @@
+=== LARAVEL ===
+
+Blade component -> sistem layout untuk merapihkan struktur view agar tidak terjadi duplikasi.
+
+Tujuan blade component -> untuk memisahkan bagian-bagian dalam web menjadi sebuah komponen terpisah sehingga bisa digunakan ulang oleh halaman lain.
+
+Cara membuat component:
+- ketik cli 'php artisan make:component namacomponent' -> akan dibuatkan component berupa views didalam folder component dan juga class component sehingga bisa memodifikasi atau menambahkan property lain ke dalam component
+- ketik cli 'php artisan make:component namacomponent --view' -> akan dibuatkan component TANPA class component, digunakan ketika ingin membuat component yang simple 
+- cara memanggil component : <x-namakomponen/>
+ 
+slot ->  berguna untuk menyisipkan elemen atau komponen lain di dalam komponen yang Anda buat -> jika pada react ini disebut children/props
+
+cara membuat slot:
+- ketik {{ $slot }} pada komponen dan posisikan dimana ingin meletakan slot
+- ketik isi apapun ketika menggunakan komponen tsb sesui dgn posisi slot yang sudah dibuat sebelumnya
+
+layout -> berguna untuk membuat template layout yang digunakan oleh beberapa halaman view
+
+membuat layout pada laravel ada 2 cara:
+- menggunakan cara template inheritance -> @extends dan @section -> Cocok untuk layout keseluruhan aplikasi.
+- menggunakan cara component -> <x-layout> dan $slot -> Cocok untuk komponen kecil atau layout modular
+
+data pada route hanya bisa di kirim ke view yg di tuju, contoh routes home mengirim data ke view home dan tidak bisa lanjut dikirim ke layouts atau komponen lain. untuk mengatasinya gunakan <x-slot:namaslot></x-slot:namaslot> untuk menerima data dari routes dan dikirim ke layout / komponen / halaman lain 
+
+jika ingin mengirim data dinamis dari setiap halaman maka kirim menggunakan routes > view > layouts > komponen
+
+gunakan {{ dd() }} untuk debug -> dump & die -> tampilkan variabel/vardump lalu matikan scriptnya -> sama halnya menggunakan var_dump() pada php
+
+request() -> function untuk memberikan akses ke objek request saat ini. Objek ini berisi informasi tentang permintaan HTTP, seperti URL, metode, header, dll.
+
+is('/') -> Metode pada objek request yang memeriksa apakah URL saat ini cocok dengan pola yang diberikan. Dalam hal ini, '/' merujuk pada root URL dari aplikasi.
+Metode ini mengembalikan true jika URL saat ini adalah root (/), dan false jika tidak.
+
+request()->is('')
+
+membuat komponen baru NavLink agar tidak redudance
+
+gunakan {{ $attributes }} untuk mengirim atribut kedalam komponen, sehingga bisa menggunakan attribute ke dalam komponen 
+
+active="true" --> mengirim string
+:active="true" --> mengirim boolean
