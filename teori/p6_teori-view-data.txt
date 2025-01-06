@@ -1,0 +1,17 @@
+=== LARAVEL ===
+
+Mengirim data kompleks (array) dari router ke view -> 
+- buat data di router menggunakan array
+- tangkap data tersebut menggunakan directive looping dan array assosiative pada view
+- buat content artikel hanya menampilkan beberapa kata, jika ingin melihat seluruh kata/paragraf maka harus klik see more yang mengarah pada halaman detail atau single post dari setiap artikel
+- untuk menangkap artikel mana yang ingin di tampilkan maka gunakan parameter yg menangkap id dari artikel yang di pilih ketika klik see more atau judul artikel "href="/posts/{{ $post['id'] }}"" 
+- untuk menampilkan halaman single post yang di pilih (while card) terlebih dahulu buat routes baru dan tangkap array yang dituju
+- namun jika menggunakan id user bisa menebak dan mengirimkan data langsung dari url, untuk mencegah nya gunakan slug
+
+directive looping dari blade laravel -> @foreach ($.. as $..)... @endforeach
+
+function dari laravel string -> Str::limit(__,__) -> berguna untuk memotong kata contoh 'bla bla bla bla see more.....'
+
+function dari laravel array -> Arr::first('__',__) -> berguna untuk mengambil data pertama dari sebuah array
+
+function dari php 8 variabel global -> use() -> berguna untuk memanggil variable global diluar dari scope function tsb
