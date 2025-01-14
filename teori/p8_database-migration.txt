@@ -1,0 +1,33 @@
+=== LARAVEL ===
+
+pada materi kali ini kita akan mengelola database seperti kita mengelola repository pada github, jadi kita bisa melihat perubahan database, rollback, dll. pada kali ini kita akan pindahkan data array yang ada di model untuk di pindahkan ke database menggunkan sqlite.
+
+*pada .env ubah pengaturan database:
+DB_CONNECTION=sqlite -> database yang digunakan 
+DB_HOST=127.0.0.1 --> nama host nya atau ip adrress localhost
+DB_PORT=3306 -> nama port nya
+DB_DATABASE=laravel -> nama database nya
+DB_USERNAME=root --> nama username nya
+DB_PASSWORD= -> password nya
+
+*tahapan connect tableplus:
+1. klik icon + di kiri atas
+2. pilih database yang digunakan
+3. berikan nama database
+4. choose file database laravel11>database>database.sqlite
+5. klik tombol test
+6. klik tombol save
+
+*jika anda butuh database yang data, relasi, tabel nya banyak maka gunakan MySQL
+
+*pada laravel jika kita ingin membuat table pada database tidak perlu bikin secara manual seperti di phpmyadmin, tapi buat di migration
+
+*perintah migration:
+-> php artisan migrate -> menjalankan semua migrasi
+-> php artisan migrate:fresh -> merfresh migrasi
+-> php artisan migrate:status -> untuk melihat migrasi mana yang jalan sejauh ini
+-> php artisan make:migration nama_migrasi -> untuk membuat migrasi baru
+
+*migration adalah mirip version control untuk database, sehingga kita bisa mengelola atau melacak setiap perubahan pada database kita. yang memungkinkan tim kita bisa mendefinisikan atau berbagi skema database dari aplikasi kita.
+
+*penamaan migrasi yang benar harus jamak ada 's' nya --> create_posts_table
