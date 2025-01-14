@@ -2,6 +2,8 @@
 
 namespace App\Models;
 
+use Illuminate\Support\Arr;
+
 // NOTED: MEMBUAT CLASS DENGAN STATIC METHOD UNTUK DATA POST (AGAR TIDAK REDUNDANT)
 class Post{
     public static function all(){
@@ -21,6 +23,17 @@ class Post{
                 'body' => 'Lorem ipsum dolor sit amet consectetur adipisicing elit. Quisquam obcaecati tenetur dignissimos commodi voluptatem dolores aperiam optio quod adipisci magni eligendi cum labore nulla, fugit repudiandae quis ratione, sequi voluptatibus eos cupiditate! Officiis recusandae accusantium a cumque odio, eum voluptatibus harum illum modi dolores voluptates dolorum vel! Vero veritatis perferendis eos eligendi facere voluptate ducimus adipisci! Error excepturi incidunt consectetur praesentium ad. Dolorum totam veniam fugit ducimus nihil magni ad voluptates, consequuntur sit commodi similique nesciunt tempora, velit quam. Sint provident facilis quidem ipsum tempora ab quod veritatis, numquam odit! Molestiae perferendis dignissimos commodi aliquam impedit non rem dolorem aliquid!'
             ],
         ];
+    }
+
+    public static function find($slug){
+
+      // MENGGUNAKAN CALLBACK UNTUK MENCARI DATA POST BERDASARKAN SLUG
+      // return Arr::first(static::all(), function($post) use($slug){
+      //   return $post['slug'] == $slug;
+      // });
+
+      // MENGGUNAKAN ARROW FUNCTION UNTUK MENCARI DATA POST BERDASARKAN SLUG
+      return Arr::first(static::all(), fn($post) => $post['slug'] == $slug);
     }
 }
 

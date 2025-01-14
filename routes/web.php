@@ -1,8 +1,8 @@
 <?php
 
-use App\Models\Post;
 use Illuminate\Support\Arr;
 use Illuminate\Support\Facades\Route;
+use App\Models\Post;
 
 
 Route::get('/', function () {
@@ -20,9 +20,7 @@ Route::get('/posts', function () {
 Route::get('/posts/{slug}', function ($slug){
     // dd($slug);
     
-    $post = Arr::first(Post::all(), function($post) use($slug){
-        return $post['slug'] == $slug;
-    });
+    $post = Post::find($slug);
     // dd($post);
 
     return view('post', [
