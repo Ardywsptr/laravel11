@@ -7,6 +7,9 @@ tahapan:
 2. menggunakan static method pada class post
 3. menggunakan data pada class post 
 4. memindahkan class post ke dalam model 
+5. autoloading & namespace
+6. membuat method find() pada model
+7. membuat halaman 404
 
 mvc pada laravel:
 1. view -> user melakukan request misal membuka halaman dengan ketik di url atau klik sebuah tombol
