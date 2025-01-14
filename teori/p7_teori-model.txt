@@ -1,0 +1,28 @@
+=== LARAVEL ===
+
+pada materi kali ini akan membuat sebuah model, jadi kita akan mengubah data yang sudah dikirimkan secara manual menggunakan array menjadi sebuah model supaya kita bisa interaksikan didalam router ataupun view. pada materi kali ini pula akan menyinggung konsep MVC pada laravel.
+
+tahapan:
+1. memindahkan array $post ke dalam class
+2. menggunakan static method pada class post
+3. menggunakan data pada class post 
+4. memindahkan class post ke dalam model 
+
+mvc pada laravel:
+1. view -> user melakukan request misal membuka halaman dengan ketik di url atau klik sebuah tombol
+2. route -> laravel akan mengakses routing 'web.php' dan mencari route mana yang diakses user
+3. controller -> jika route sudah ketemu maka akan menjalankan sebuah proses (controller) seperti mengambil data atau mengirimkan data.
+4. model -> jika controller perlu bisnis logic seperti ambil data melalui database, memproses sebuah query maka harus melalu model.
+5. database / api -> jika model membutuhkan data pada database atau melalui API
+6. controller --> jika data sudah dapat maka dikembalikan lagi ke controller apakah perlu di proses lagi atau tidak.
+7. view -> jika data selesai di proses maka akan ditampilkan ke view
+
+*biasnya setiap 1 class pada model mempresentasikan tabel yang ada di database dan juga migration
+
+*setelah memindahkan class ke model terjadi problem route tidak mengenali class post, solusi nya gunakan namespace dan autoload
+
+*namespace memungkinkan kita membuat beberapa file dengan nama yang sama dan memanggil nya secara spesifik dengan nama folder nya. -> file yg dipanggil: namespace App\namafolder -> file yg memanggil: use App\namafolder\namafile
+
+*jiak ingin memanggil variabel global tanpa 'use' anda bisa menggunakan arrow function
+
+*gunakan 'abort(404)' untuk handel error
