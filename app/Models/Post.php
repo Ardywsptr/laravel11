@@ -3,6 +3,7 @@
 namespace App\Models;
 
 use Illuminate\Support\Arr;
+use PhpParser\Node\Expr\Cast\Array_;
 
 // NOTED: MEMBUAT CLASS DENGAN STATIC METHOD UNTUK DATA POST (AGAR TIDAK REDUNDANT)
 class Post{
@@ -25,7 +26,7 @@ class Post{
         ];
     }
 
-    public static function find($slug){
+    public static function find($slug): array{
 
       // MENGGUNAKAN CALLBACK UNTUK MENCARI DATA POST BERDASARKAN SLUG
       // return Arr::first(static::all(), function($post) use($slug){
@@ -33,8 +34,14 @@ class Post{
       // });
 
       // MENGGUNAKAN ARROW FUNCTION UNTUK MENCARI DATA POST BERDASARKAN SLUG
-      return Arr::first(static::all(), fn($post) => $post['slug'] == $slug);
+    $post = Arr::first(static::all(), fn($post) => $post['slug'] == $slug);
+
+    if(!$post){
+      abort(404);
     }
+
+    return $post;
+  }
 }
 
 ?>
