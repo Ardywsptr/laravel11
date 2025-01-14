@@ -1,5 +1,7 @@
 <?php 
 
+namespace App\Models;
+
 // NOTED: MEMBUAT CLASS DENGAN STATIC METHOD UNTUK DATA POST (AGAR TIDAK REDUNDANT)
 class Post{
     public static function all(){
