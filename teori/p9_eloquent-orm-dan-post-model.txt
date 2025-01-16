@@ -1,0 +1,295 @@
+=== LARAVEL ===
+
+=== pada materi ini kita membahas eloquent :
+
+-> sebuah object relational mapper (orm) yg dimiliki laravel.
+-> berguna untuk mengelola database 
+-> tidak lagi ber interaksi dgn databse menggunakan SQL
+-> ber interaksi dgn database menggunakan fungsi bawaan eloquent
+-> Eloquent bertindak sebagai perantara antara aplikasi Anda dan database. 
+
+
+=== Analogi Eloquent ORM: Pelayan di Restoran
+Bayangkan Anda pergi ke sebuah restoran untuk makan. Berikut situasinya:
+
+-> Tanpa Pelayan (SQL Manual):
+Anda harus pergi ke dapur sendiri, mengambil bahan makanan, memasaknya, menyajikan makanan, dan membersihkan semuanya setelah selesai. Proses ini memakan waktu, membutuhkan banyak usaha, dan Anda harus tahu bagaimana semuanya bekerja di dapur.
+
+-> Dengan Pelayan (Eloquent ORM):
+Anda cukup duduk di meja, melihat menu, dan memberi tahu pelayan apa yang Anda inginkan. Pelayan akan menangani semua hal yang kompleks di dapur, seperti memilih bahan makanan, memasak, dan menyajikan makanan ke meja Anda. Anda hanya perlu menikmati hasilnya tanpa memikirkan proses rumit di baliknya.
+
+-> Restoran: Representasi dari database Anda.
+-> Menu: Representasi dari model dalam Eloquent (misalnya, User untuk tabel users).
+-> Pelayan: Representasi dari Eloquent ORM yang mengurus semua query dan interaksi dengan database.
+-> Anda: Representasi dari developer yang hanya perlu menggunakan fungsi-fungsi Eloquent untuk mendapatkan data.
+
+
+=== cara kerja eloquent:
+
+-> Model: Setiap tabel di database diwakili oleh sebuah model. Misalnya, tabel users akan memiliki model User.
+
+-> Otomatisasi: Eloquent secara otomatis menghubungkan model dengan tabel database (dengan konvensi nama tabel dalam bentuk jamak, misalnya users untuk model User).
+
+-> Fungsi Siap Pakai: Anda bisa menggunakan fungsi bawaan untuk operasi seperti membaca, menambahkan, mengedit, atau menghapus data.
+
+
+=== Mengapa Menggunakan Eloquent?
+
+-> Mudah Dibaca: Kode menjadi lebih bersih dan mudah dipahami.
+-> Efisien: Tidak perlu menulis SQL query manual untuk operasi umum.
+-> Keamanan: Mencegah SQL Injection karena query dibuat secara otomatis.
+
+
+=== Kapan Harus Menulis SQL?
+
+Anda hanya perlu menulis SQL jika query Anda sangat kompleks dan tidak bisa diwakili oleh fungsi bawaan Eloquent. Dalam situasi seperti itu, Anda bisa menggunakan query builder atau bahkan SQL mentah:
+
+DB::select('SELECT * FROM users WHERE email = ?', ['john@example.com']);
+
+Namun, untuk sebagian besar kasus, Eloquent sudah cukup fleksibel dan efisien!
+
+
+=== NOTED:
+
+-> setiap tabel mempunyai model
+-> supaya menyertakan eloquent dalam class harus extend dengan Model
+-> untuk menampilkan data dari database menggunakan fungsi eloquent all()
+-> secara default find() mencari berdasarkan id, jika ingin menampilkan slug pada url maka gunakan 'route model binding' untuk customisasi data apa yang di ambil dari model tersebut
+-> menambahkan data seolah-olah di kirim menggunakan form menggunakan fitur laravel 'tinker' lewat CLI
+-> karena kita menggunakan eloquent maka isert data nya ke model, sehingga biarkan model nya insert ke dalam tabel
+-> namun, secara default eloquent laravel tidak bisa langsung menambahkan data. terlebih dahulu gunakan fillable(atribut yang ingin ditambahkan) atau guard(atribut yang tidak boleh ditambahkan)
+-> ketik di CLI :
+                -> php artisan tinker
+                -> App\Models\Post::create([
+                          'title' => 'Judul Artikel 1', 
+                          'author' => 'John Doe', 
+                          'slug' => 'judul-artikel-1',
+                          'body' => 'Lorem ipsum dolor sit amet consectetur adipisicing elit. Officiis optio labore ut id quo commodi, doloribus sequi laborum aspernatur dolorem ipsa deleniti quas velit minima et! Quod harum dolorem consectetur?'
+                          ]);
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+=== fungsi-fungsi Eloquent ORM di Laravel beserta contoh penggunaannya:
+
+
+
+-> Create (Membuat Data Baru)
+
+--> Insert Data Baru
+
+    $user = new User();
+    $user->name = "John Doe";
+    $user->email = "john@example.com";
+    $user->password = bcrypt('password');
+    $user->save();
+
+--> Mass Assignment
+
+    User::create([
+        'name' => 'Jane Doe',
+        'email' => 'jane@example.com',
+        'password' => bcrypt('password'),
+    ]);
+
+
+
+-> Read (Membaca Data)
+
+--> Mengambil Semua Data
+
+    $users = User::all();
+
+--> Mengambil Data Berdasarkan ID
+
+    $user = User::find(1);
+
+--> Menggunakan Kondisi (Where)
+
+    users = User::where('email', 'john@example.com')->get();
+
+--> Mengambil Data Pertama yang Cocok
+
+    $user = User::where('email', 'john@example.com')->first();
+
+--> Mengambil Data Tertentu (Select)
+
+    $users = User::select('name', 'email')->get();
+
+--> Mengambil Data dengan Pagination
+
+    $users = User::paginate(10); // 10 data per halaman
+
+--> Mengambil Data dengan Sorting (Order By)
+
+    $users = User::orderBy('name', 'asc')->get();
+
+--> Mengambil Data dengan Limit
+
+    $users = User::take(5)->get();
+
+
+
+-> Update (Memperbarui Data)
+
+--> Update Berdasarkan Model
+
+    $user = User::find(1);
+    $user->name = "Jane Doe";
+    $user->save();
+
+--> Update Menggunakan Query
+
+    User::where('id', 1)->update(['name' => 'John Updated']);
+
+
+
+-> Delete (Menghapus Data)
+
+--> Hapus Berdasarkan Model
+
+    $user = User::find(1);
+    $user->delete();
+
+--> Hapus Menggunakan Query
+
+    User::where('email', 'john@example.com')->delete();
+
+
+
+-> Aggregation Functions (Fungsi Agregasi)
+
+--> Count
+
+    $count = User::count();
+
+--> Sum
+
+    $totalAge = User::sum('age');
+
+--> Average
+
+    $averageAge = User::avg('age');
+
+--> Maximum
+
+    $maxAge = User::max('age');
+
+--> Minimum
+
+    $minAge = User::min('age');
+
+
+
+-> Relationship (Relasi Antar Tabel)
+
+--> One-to-Many
+    Misalnya, tabel User memiliki banyak Post.
+
+    Definisikan Relasi di Model:
+
+    class User extends Model {
+        public function posts() {
+            return $this->hasMany(Post::class);
+        }
+    }
+
+    Mengambil Data:
+
+    $user = User::find(1);
+    $posts = $user->posts;
+
+--> Many-to-Many
+    Misalnya, tabel User memiliki banyak Role, dan Role dimiliki oleh banyak User.
+
+    Definisikan Relasi di Model:
+
+    class User extends Model {
+        public function roles() {
+            return $this->belongsToMany(Role::class);
+        }
+    }
+
+    Mengambil Data:
+
+    $user = User::find(1);
+    $roles = $user->roles;
+
+
+
+-> Soft Deletes (Penghapusan Sementara)
+
+--> Menghapus dengan Soft Delete
+    Aktifkan fitur di model:
+
+    use Illuminate\Database\Eloquent\SoftDeletes;
+
+    class User extends Model {
+        use SoftDeletes;
+    }
+
+    Hapus Data:
+
+    $user = User::find(1);
+    $user->delete();
+
+--> Mengambil Data yang Dihapus
+
+    $users = User::onlyTrashed()->get();
+
+--> Memulihkan Data yang Dihapus
+
+    $user = User::withTrashed()->find(1);
+    $user->restore();
+
+
+
+-> Query Scope (Penyederhanaan Query)
+
+--> Custom Scope
+    Definisikan scope di model:
+
+    class User extends Model {
+        public function scopeActive($query) {
+            return $query->where('status', 'active');
+        }
+    }
+
+    Menggunakan scope:
+
+    $activeUsers = User::active()->get();
+
+
+
+-> Eager Loading (Menghindari N+1 Query Problem)
+
+--> Mengambil Relasi dengan Eager Loading
+    $users = User::with('posts')->get();
+
+--> Lazy Loading
+    $user = User::find(1);
+    $posts = $user->posts;
+
+
+
+-> Raw Queries (Jika Query Sangat Kompleks)
+
+--> Menggunakan Raw SQL
+
+    use Illuminate\Support\Facades\DB;
+
+    $users = DB::select('SELECT * FROM users WHERE email = ?', ['john@example.com']);
+
+--> Raw Expression
+
+  $users = User::whereRaw('age > ? AND status = ?', [25, 'active'])->get();
