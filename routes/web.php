@@ -17,11 +17,9 @@ Route::get('/posts', function () {
     ]);
 });
 
-Route::get('/posts/{slug}', function ($slug){
-    // dd($slug);
+Route::get('/posts/{post:slug}', function (Post $post){
     
-    $post = Post::find($slug);
-    // dd($post);
+    // $post = Post::find($post);
 
     return view('post', [
         'title' => 'Single Post',
