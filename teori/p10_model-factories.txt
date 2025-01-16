@@ -1,0 +1,59 @@
+=== LARAVEL ===
+
+=== Model factories
+
+-> fitur yang memudahkan kita untuk membuat data dummy (data palsu) untuk pengujian atau pengembangan aplikasi. 
+
+-> Dengan Model Factories, kita bisa membuat data palsu secara otomatis tanpa harus memasukkannya secara manual ke database.
+
+-> Ini sangat berguna saat kita ingin mengisi tabel dengan data sementara untuk melihat bagaimana aplikasi bekerja.
+
+
+
+=== Langkah dan Contoh Penggunaan:
+
+-> Membuat Factory Untuk membuat factory, kamu bisa menjalankan perintah:
+    php artisan make:factory NamaModelFactory
+
+-> Menentukan Template Data Setelah factory dibuat:
+    {
+        return [
+            'name' => fake()->name(),
+            'email' => fake()->unique()->safeEmail(),
+            'email_verified_at' => now(),
+            'password' => static::$password ??= Hash::make('password'),
+            'remember_token' => Str::random(10),
+        ];
+    }
+
+-> Menggunakan Factory, di Seeder, Testing, atau Tinker.
+
+--> Di Seeder Misalnya, kamu ingin mengisi tabel users dengan 10 data dummy:
+    // DatabaseSeeder.php
+    \App\Models\User::factory(10)->create();
+
+--> Di Tinker Kamu juga bisa mencoba langsung dari command line:
+    php artisan tinker
+    App\Models\User::factory()->create();
+
+
+
+=== Manfaat Model Factories
+
+-> Menghemat waktu: Kamu tidak perlu membuat data manual untuk pengujian.
+-> Testing yang lebih baik: Data dummy membantu kamu mencoba berbagai skenario tanpa risiko merusak data asli.
+-> Efisien: Bisa digunakan untuk membuat banyak data dengan cepat.
+
+
+
+=== NOTED
+-> jika ingin membuat data dengan field yang berbeda: 
+  -> buat method dan tentukan field mana yang ingin berbeda, contoh method unverified() pada field email
+  -> panggil menggunakan : factory(5)->unverified()->create()
+
+-> factories ini menggunakan library faker
+-> jika ingin costumisasi data factories baca docs : https://fakerphp.org/
+  -> contoh ingin mengubah location menjadi indonesia : ubah di env global 'APP_FAKER_LOCALE=id_ID'
+  -> contoh ingin mengubah format : 
+      'title' => fake()->sentence(),
+      'author' => fake()->name(),
