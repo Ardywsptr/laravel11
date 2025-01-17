@@ -1,0 +1,83 @@
+=== LARAVEL ===
+
+=== Eloquent Relationship
+
+-> fitur yang digunakan untuk menghubungkan antar model (tabel di database) dengan cara yang sederhana dan elegan.
+
+-> membantu kita menangani hubungan antar data dengan mudah, seperti satu ke satu (one-to-one), satu ke banyak (one-to-many), dan banyak ke banyak (many-to-many).
+
+
+
+=== Analogi Relationship
+
+->  Satu ke satu (One-to-One)
+    Seperti seseorang dan paspor: Setiap orang hanya punya satu paspor, dan setiap paspor hanya milik satu orang.
+
+->  Satu ke banyak (One-to-Many)
+    Seperti seorang penulis dan buku-bukunya: Satu penulis bisa menulis banyak buku, tetapi setiap buku hanya punya satu penulis.
+
+->  Banyak ke banyak (Many-to-Many)
+    Seperti murid dan kelas: Satu murid bisa mengikuti banyak kelas, dan satu kelas bisa diikuti oleh banyak murid.
+
+
+=== Tahapan Relationship
+
+->  Rancang relasi, contoh:
+    1 author boleh menulis banyak post -> ONE-TO-MANY
+    1 post hanya boleh di tulis oleh 1 author
+    
+->  Buat relasi pada migration, contoh:
+    NOTED: secara default id pada laravel tipe data nya 'unsignedBigInteger'
+
+    1.  tambahkan foreign key pada migration posts: 
+        $table->unsignedBigInteger('author_id');
+        $table->foreign('author_id')->references('id')->on('users');
+
+        atau, jika ingin lebih ringkas dan tambah index
+
+        $table->foreignId('user_id')->constrained(
+          table: 'users', indexName: 'posts_user_id'
+        );
+
+        DIBACA: tambahkan foreign author_id dari referensi id di tabel users
+    
+    DOCS: https://laravel.com/docs/11.x/migrations#foreign-key-constraints
+
+->  Tambahkan foreign key dan buatkan sekaligus factory User pada factory post:
+    'author_id' => User::factory(),     -> NOTED: Jgn lupa import User
+
+    ->  jika ingin membuat 100 post dan 5 user maka gunakan perintah tinker:
+        App\Models\Post::factory(100)->recycle(User::factory(5)->create())->create();
+
+    DOCS: https://laravel.com/docs/11.x/eloquent-factories#recycling-an-existing-model-for-relationships
+
+->  Buat relasi pada model, contoh:
+
+    ->  pada model post, tambahkan method:
+
+        public function author(): BelongsTo
+        {
+            return $this->belongsTo(User::class);
+        }
+
+    ->  pada model user, tambahkan method:
+
+        public function posts(): HasMany
+        {
+            return $this->hasMany(Post::class, 'author_id');
+        }
+
+        NOTED: Secara default foreign key mengikuti nama tabel nya contoh 'user_id' jika di ganti maka tambahkan pada parameter kedua contoh 'author_id'
+
+    DOCS: https://laravel.com/docs/11.x/eloquent-relationships
+
+->  Ganti data view merujuk pada relasi author dan ambil name nya, contoh:
+    { $post->author->name }
+
+
+
+=== Tugas fitur baru
+
+tambahkan kategori, dimana:
+1 post hanya memiliki 1 kategori
+1 kategori bisa memiliki banyak post
