@@ -40,12 +40,16 @@
         );
 
         DIBACA: tambahkan foreign author_id dari referensi id di tabel users
+    
+    DOCS: https://laravel.com/docs/11.x/migrations#foreign-key-constraints
 
 ->  Tambahkan foreign key dan buatkan sekaligus factory User pada factory post:
     'author_id' => User::factory(),     -> NOTED: Jgn lupa import User
 
     ->  jika ingin membuat 100 post dan 5 user maka gunakan perintah tinker:
         App\Models\Post::factory(100)->recycle(User::factory(5)->create())->create();
+
+    DOCS: https://laravel.com/docs/11.x/eloquent-factories#recycling-an-existing-model-for-relationships
 
 ->  Buat relasi pada model, contoh:
 
@@ -64,6 +68,8 @@
         }
 
         NOTED: Secara default foreign key mengikuti nama tabel nya contoh 'user_id' jika di ganti maka tambahkan pada parameter kedua contoh 'author_id'
+
+    DOCS: https://laravel.com/docs/11.x/eloquent-relationships
 
 ->  Ganti data view merujuk pada relasi author dan ambil name nya, contoh:
     { $post->author->name }
