@@ -1,0 +1,42 @@
+=== LARAVEL ===
+
+=== Database seeder 
+https://laravel.com/docs/11.x/seeding#writing-seeders
+
+-> fitur yang digunakan untuk memasukkan data awal ke dalam database dengan cara yang sederhana dan otomatis
+
+-> berguna untuk keperluan pengembangan atau testing, sehingga Anda tidak perlu memasukkan data secara manual ke tabel database.
+
+
+
+=== Analogi
+
+-> Bayangkan Anda punya sebuah toko baru dan ingin memajang barang-barang contoh di etalase. Barang-barang ini hanya untuk menarik perhatian pembeli dan memberi gambaran tentang apa saja yang dijual di toko Anda. Database seeder itu seperti asisten toko yang membantu Anda mengisi etalase tersebut dengan cepat tanpa harus melakukannya sendiri satu per satu.
+
+
+
+=== NOTED:
+
+-> sebelumnya sudah menggunakan factory, namun masih di tulis manual dengan tinker
+-> seeder hadir supaya membuat data secara otomatis
+-> factory menggunakan tinker : 
+    -> php artisan migrate:fresh
+    -> php artisan tinker
+    -> App\Models\Post::factory(100)->recycle([Category::factory(3)->create(), User::factory(5)->create()])->create()
+-> menggunakan seeder:
+    -> php artisan migrate:fresh --seed atau php artisan migrate:fresh --seed --seeder=NamaSeeder
+-> 
+
+
+=== tahapan
+
+-> secara default sudah ada seeder DatabaseSeeder dgn perintah menjalankan:
+    -> php artisan db:seed atau dengan migrate fresh php artisan migrate:fresh --seed
+ 
+-> jika data 1 atau 2 lebih baik gunakan create manual, namun jika data banyak lebih baik gunakan factory
+
+-> jika ingin memisahkan setiap tabel menggunakan 1 seeder
+    -> buat seeder baru : php artisan make:seed NamaSeeder
+    -> pada seeder cabang buatkan data masing2 factory atau manual
+    -> pada seeder utama panggil menggunakan 'call' : 
+        $this->call([NamaSeeder::class, NamaSeeder::class])
