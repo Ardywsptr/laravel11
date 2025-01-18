@@ -1,0 +1,21 @@
+=== LARAVEL ===
+
+=== Post Category
+
+-> refactor url menggunakan slug username 
+-> menambahkan fitur count article dari setiap author
+-> membuat post category:
+    -> buat konsep: 1 kategori digunakan oleh banyak artikel dan 1 artikel hanya memiliki 1 kategori
+    -> buat container di view
+    -> buat migrasi, factory dan model category
+    -> buat relasi migrasi
+    -> buat relasi factory
+    -> buat relasi model
+    -> test menggunakan factory recycle
+    -> buat routes categories
+    -> sesuaikan view routes categories
+
+-> jika gagal factory bisa jadi ada kesalahan pada cache, maka harus dibersihkan autoload:
+    -> buka terminal dan ketik
+    -> composer dumpautoload
+    -> php artisan optimize:clear
