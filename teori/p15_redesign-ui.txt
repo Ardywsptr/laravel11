@@ -1,0 +1,45 @@
+
+
+=========================================  REDESIGN UI ==========================================
+
+
+-> update ui blog menggunakan card
+-> menggunakan component base tailwind flowbith https://flowbite.com
+
+
+================================== INSTALL FLOWBITH DI LARAVEL ==================================
+
+
+https://flowbite.com/docs/getting-started/laravel/
+
+-> npm install -D flowbite
+-> sesuaikan config tailwind
+-> tambahkan @vite(['resources/css/app.css','resources/js/app.js']) pada head
+-> import 'flowbite'; pada app.js
+-> gunakan component: copy code html & config tailwind
+
+
+====================================== TAHAPAN REDESIGN UI ======================================
+
+
+1). install flowbite
+2). redesign tampilan blog posts
+3). tambahkan field color pada tabel category
+4). sesuaikan bg-color pada category dgn field color pada tabel category
+5). redesign tampilan single post
+
+
+============================================= NOTED =============================================
+
+
+->  jika ingin menggunakan dynamic class name pada tailwind maka gunakan 'Safelisting classes'
+    https://tailwindcss.com/docs/content-configuration#safelisting-classes
+
+    ->  daftar terlebih dahulu class dinamis didalam config tailwindcss:
+        safelist: [
+          'bg-red-100',
+          'bg-green-100',
+          'bg-blue-100',
+          'bg-yellow-100',
+          'bg-purple-100',
+        ]
