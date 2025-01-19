@@ -23,10 +23,8 @@ Route::get('/posts', function () {
     ]);
 });
 
+//! Tidak perlu menggunakan eager loading manual karena tidak melakukan looping
 Route::get('/posts/{post:slug}', function (Post $post){
-    
-    // $post = Post::find($post);
-
     return view('post', [
         'title' => 'Single Post',
         'post' => $post
@@ -34,18 +32,26 @@ Route::get('/posts/{post:slug}', function (Post $post){
 });
 
 Route::get('/authors/{user:username}', function (User $user){
-    
+    //! lazy loading N+1 problem
+    // $posts = $user->posts;
+    //? CHILD MODEL -> Lazy Eager Loading manual
+    $posts = $user->posts->load('category', 'author');
+
     return view('posts', [
         'title' => count($user->posts) . ' Article By : ' . $user->name,
-        'posts' => $user->posts
+        'posts' => $posts
     ]);
 });
 
 Route::get('/categories/{category:slug}', function (Category $category){
+    //! lazy loading N+1 problem
+    // $posts = $category->posts;
+    //? CHILD MODEL -> Lazy Eager Loading manual
+    $posts = $category->posts->load('category', 'author');
     
     return view('posts', [
         'title' => 'Category : ' . $category->name,
-        'posts' => $category->posts
+        'posts' => $posts
     ]);
 });
 
