@@ -13,9 +13,9 @@ Route::get('/', function () {
 // MENGGUNAKAN STATIC METHOD UNTUK DATA POST 'Post::all()'
 Route::get('/posts', function () {
     //! lazy loading N+1 problem
-    // $post = Post::all();
+    $posts = Post::all();
     //? PARENT MODEL -> Eager Loading manual
-    $posts = Post::with('category', 'author')->get();
+    // $posts = Post::with('category', 'author')->get();
 
     return view('posts', [
         'title' => 'Blog Page',
@@ -33,9 +33,9 @@ Route::get('/posts/{post:slug}', function (Post $post){
 
 Route::get('/authors/{user:username}', function (User $user){
     //! lazy loading N+1 problem
-    // $posts = $user->posts;
+    $posts = $user->posts;
     //? CHILD MODEL -> Lazy Eager Loading manual
-    $posts = $user->posts->load('category', 'author');
+    // $posts = $user->posts->load('category', 'author');
 
     return view('posts', [
         'title' => count($user->posts) . ' Article By : ' . $user->name,
@@ -45,9 +45,9 @@ Route::get('/authors/{user:username}', function (User $user){
 
 Route::get('/categories/{category:slug}', function (Category $category){
     //! lazy loading N+1 problem
-    // $posts = $category->posts;
+    $posts = $category->posts;
     //? CHILD MODEL -> Lazy Eager Loading manual
-    $posts = $category->posts->load('category', 'author');
+    // $posts = $category->posts->load('category', 'author');
     
     return view('posts', [
         'title' => 'Category : ' . $category->name,
