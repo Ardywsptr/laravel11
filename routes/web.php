@@ -12,9 +12,14 @@ Route::get('/', function () {
 
 // MENGGUNAKAN STATIC METHOD UNTUK DATA POST 'Post::all()'
 Route::get('/posts', function () {
+    //! lazy loading N+1 problem
+    // $post = Post::all();
+    //? PARENT MODEL -> Eager Loading manual
+    $posts = Post::with('category', 'author')->get();
+
     return view('posts', [
         'title' => 'Blog Page',
-        'posts' => Post::all()
+        'posts' => $posts
     ]);
 });
 
