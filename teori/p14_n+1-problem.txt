@@ -1,0 +1,141 @@
+
+
+=========================================  N+1 PROBLEM =========================================
+
+-> sebuah masalah yang muncul ketika membuat sebuah relationship
+
+-> masalah yang terjadi ketika aplikasi Anda membuat terlalu banyak query database yang tidak efisien karena relasi antar model tidak dikelola dengan benar.
+
+-> Masalah ini biasanya muncul ketika Anda mengambil data dari model utama beserta data relasinya, tetapi tidak menggunakan eager loading. 
+
+-> Akibatnya, untuk setiap item pada model utama, Laravel membuat query terpisah untuk mengambil data relasi, sehingga jumlah query meningkat drastis dan membuat aplikasi menjadi lambat
+
+-> ketika kita terlalu banyak melakukan query karena kita melakukan looping
+
+
+
+================================== N+1 CONTOH PADA PROJECT INI ==================================
+
+-> looping untuk menampilkan seluruh postingan pada blog, ada 100 postingan tapi didalam nya ada relasi ke tabel lain (user dan category). pada saat kita query select*from post maka menampilkan seluruh data post, tapi didalam 1 looping post terdapat 1 query terhadap user dan category.
+
+sehingga menghasilkan 201 query yg di hasilkan :
+
+1). select*from post -> 1 query memanggil seluruh data (100) post 
+
+2). select*from user where id 1 2 3 4 5 -> sebanyak 100 query mengikuti banyak nya data post dan memanggil satu persatu data user 
+
+3). select*from category where id 1 2 3 4 5 -> sebanyak 100 query mengikuiti banyak nya data post dan memanggil satu persatu data user 
+
+-> pada routes posts, kita menampilkan seluruh data pada model post dimana pada model tsb mempunyai 2 relasi (user dan category). jika kita mempunyai relasi kita jadi mempunyai fitur LAZY LOADING
+
+-> LAZY LOADING merupakan fitur pada saat kita ingin menampilkan data dari tabel lain yang sudah di relasikan tanpa perlu memikirkan query karena sudah dilakukan oleh eloquent, TAPI disisi lain kita akan menghadapi sebuah masalah yaitu N+1
+
+
+
+=============================== SOLUSI dari N+1 ketika LAZY LOADING ============================
+
+--> CARA MANUAL:
+
+1). menggunakan EAGER LOADING -> menambahkan method with() pada model parent bersamaan dengan relasi nya :
+
+https://laravel.com/docs/11.x/eloquent-relationships#automatically-hydrating-parent-models-on-children
+
+    pada routes post (model parent)
+    Post::with(['author', 'category'])->get()
+
+2). menggunakan LAZY EAGER LOADING -> menambahkan method load() pada model child bersamaan dengan relasi nya : 
+
+https://laravel.com/docs/11.x/eloquent-relationships#eager-loading
+
+    pada routes author/user (model child)
+    $user->posts->load('author, category')
+
+    pada routes category (model child)
+    $category->posts->load('author, category')  
+
+
+--> CARA OTOMATIS
+
+1). menggunakan EAGER LOADING DEFAULT pada model parent -> tambahkan pada class model parent:
+
+https://laravel.com/docs/11.x/eloquent-relationships#eager-loading
+
+    protected $with = ['author', 'category'];
+
+*gunakan cara otomatis ketika ingin selalu melakukan EAGER loading pada relationship kita
+
+
+
+============================================= NOTED =============================================
+
+-> Untuk melihat query kita tidak efektif gunakan package 'Debugbar' -> https://github.com/barryvdh/laravel-debugbar => hanya gunakan debugbar pada development!!! jangan gunakan ketika sudah deployment karena akan membocorkan informasi
+
+-> instalation debugbar : composer require barryvdh/laravel-debugbar --dev
+
+-> jika ingin menampilkan seluruh data gunakan method all()
+
+-> jika ingin menampilkan seluruh data tapi ingin melakukan sesuatu pada data tsb gunakan method get() sebelum melakukan sesuatu, contoh : Post::with(['author', 'category'])->get() atau Post::methodlain->get()
+
+-> gunakan LAZY LOADING ketika tidak akan mengganggu performa, misal mengambil data relasi tanpa looping
+
+-> gunakan EAGER LOADING ketika sudah ada problem N+1 pada LAZY LOADING (biasanya adanya looping)
+
+-> Jika bekerja secara tim dan ingin memastikan gak ada 1 programmer yang menggunakan lazy loading, kita bisa jaga aplikasi ini dengan menjalankan sebuah execption didalam service provider nya app>Providers>AppServiceProvider.php>method boot tambahkan : Model::preventLazyLoading()
+
+https://laravel.com/docs/11.x/eloquent-relationships#preventing-lazy-loading
+
+
+
+============================================ ANALOGI ============================================
+
+Bayangkan Anda memiliki daftar nama siswa di sebuah kelas, dan setiap siswa memiliki buku catatan. Untuk mengetahui buku catatan setiap siswa:
+
+-> Anda mengambil daftar siswa (query pertama).
+-> Untuk setiap siswa, Anda bertanya secara individu tentang buku catatannya (satu query tambahan per siswa).
+
+Jika ada 10 siswa, Anda akan membuat 11 query:
+1 query untuk mengambil daftar siswa, dan 10 query untuk mengambil buku catatan mereka. Ini adalah N+1 Problem.
+
+Sebaliknya, jika Anda langsung meminta daftar siswa bersama buku catatannya dalam satu permintaan besar, Anda hanya akan membuat 2 query:
+
+-> Query pertama untuk mengambil daftar siswa.
+-> Query kedua untuk mengambil semua buku catatan milik siswa tersebut.
+
+
+
+========================================= CONTOH KASUS ==========================================
+
+->  Tanpa Eager Loading (Menghasilkan N+1 Problem):
+
+    Misalnya Anda memiliki relasi hasMany antara User dan Post:
+
+    // Controller
+    $users = User::all();
+
+    foreach ($users as $user) {
+        echo $user->posts->count();
+    }
+
+    Kode di atas akan:
+
+    1). Mengambil semua data users (1 query).
+    2). Untuk setiap user, mengambil semua post-nya (1 query per user).
+        Jika ada 50 pengguna, maka akan ada 1 (query awal) + 50 (query tambahan untuk setiap user) = 51 query.
+
+
+->  Dengan Eager Loading (Menghindari N+1 Problem):
+
+    Anda dapat menggunakan metode with() untuk menghindari masalah ini:
+
+    // Controller
+    $users = User::with('posts')->get();
+
+    foreach ($users as $user) {
+        echo $user->posts->count();
+    }   
+
+    Kode ini akan menghasilkan hanya 2 query:
+
+    - Query pertama untuk mengambil semua data users.
+    - Query kedua untuk mengambil semua posts yang berkaitan dengan pengguna.
+
