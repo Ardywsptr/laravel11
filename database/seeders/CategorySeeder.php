@@ -16,12 +16,35 @@ class CategorySeeder extends Seeder
     {
         // Category::factory(5)->create();
 
-        $categories = [ 'Frontend Web', 'Backend Web', 'UI UX', 'CI CD', 'Testing' ];
-
+        $categories = 
+        [
+            [
+                'name' => 'Frontend Web',
+                'color' => 'red',
+            ],
+            [
+                'name' => 'Backend Web',
+                'color' => 'blue',
+            ],
+            [
+                'name' => 'UI UX',
+                'color' => 'green',
+            ],
+            [
+                'name' => 'CI CD',
+                'color' => 'yellow',
+            ],
+            [
+                'name' => 'Testing',
+                'color' => 'purple',
+            ],
+        ];
+        
         foreach ($categories as $category) {
             Category::create([
-                'name' => $category,
-                'slug' => Str::slug($category),
+                'name' => $category['name'],
+                'slug' => Str::slug($category['name']),
+                'color' => $category['color'],
             ]);
         }
     }
