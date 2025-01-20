@@ -1,0 +1,11 @@
+
+==========================================  PAGINATION ==========================================
+
+https://laravel.com/docs/11.x/pagination#main-content
+
+-> ganti method untuk menampilkan data nya, disini ganti all() dengan paginate()
+-> untuk memanggil hasil paginate pada view tambahkkan {{ $posts->links() }}
+-> secara default paginate sudah dibuat style nya menggunakan tailwind, jika ingin custom maka keluarkan vendor tsb ke publish 
+    -> ketik : php artisan vendor:publish
+    -> pilih vendor mana yang ingi di publish, disini saya pilih no 5
+    -> tambahkan method withQueryString() agar bisa berpindah halaman
