@@ -1,6 +1,6 @@
 <x-layout>
   <x-slot:title>{{ $title }}</x-slot:title>
-    <form class="max-w-md mx-auto" method="GET" action="/posts">
+    <form class="max-w-md mx-auto my-4" method="GET" action="/posts">
       @if (request('category'))
         <input type="hidden" name="category" value="{{ request('category') }}">
       @endif
@@ -74,4 +74,7 @@
           @endforelse
         </div>  
     </div>
+    
+{{ $posts->links() }}
+
 </x-layout>
