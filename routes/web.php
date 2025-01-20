@@ -10,16 +10,17 @@ Route::get('/', function () {
     return view('home', ['title' => 'Home Page']);
 });
 
-// MENGGUNAKAN STATIC METHOD UNTUK DATA POST 'Post::all()'
 Route::get('/posts', function () {
-    //! lazy loading N+1 problem
-    $posts = Post::all();
-    //? PARENT MODEL -> Eager Loading manual
-    // $posts = Post::with('category', 'author')->get();
+
+    $posts = Post::latest();
+
+    if (request('search')){
+        $posts->where('title', 'like', '%' . request('search') . '%');
+    }
 
     return view('posts', [
         'title' => 'Blog Page',
-        'posts' => $posts
+        'posts' => $posts->get()
     ]);
 });
 
