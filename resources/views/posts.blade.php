@@ -1,6 +1,12 @@
 <x-layout>
   <x-slot:title>{{ $title }}</x-slot:title>
-    <form class="max-w-md mx-auto" method="GET" action="/posts">   
+    <form class="max-w-md mx-auto" method="GET" action="/posts">
+      @if (request('category'))
+        <input type="hidden" name="category" value="{{ request('category') }}">
+      @endif
+      @if (request('author'))
+        <input type="hidden" name="author" value="{{ request('author') }}">
+      @endif
         <label for="search" class="mb-2 text-sm font-medium text-gray-900 sr-only dark:text-white">Search</label>
         <div class="relative">
             <div class="absolute inset-y-0 flex items-center pointer-events-none start-0 ps-3">
@@ -29,7 +35,7 @@
           @foreach ($posts as $post)
             <article class="p-6 bg-white border border-gray-200 rounded-lg shadow-md dark:bg-gray-800 dark:border-gray-700">
                 <div class="flex items-center justify-between mb-5 text-gray-500">
-                  <a href="/categories/{{ $post->category->slug }}">
+                  <a href="/posts?category={{ $post->category->slug }}">
                     <span class="bg-{{ $post->category->color }}-100 text-primary-800 text-xs font-medium inline-flex items-center px-2.5 py-0.5 rounded dark:bg-{{ $post->category->color }}-200 dark:text-primary-800 hover:shadow-sm hover:bg-{{ $post->category->color }}-200">
                         {{ $post->category->name }}
                     </span>
@@ -43,7 +49,7 @@
                 <div class="flex items-center justify-between">
                     <div class="flex items-center space-x-4">
                         <img class="rounded-full w-7 h-7" src="https://flowbite.s3.amazonaws.com/blocks/marketing-ui/avatars/jese-leos.png" alt="{{ $post->author->name }}" />
-                        <a href="/authors/{{ $post->author->username }}">
+                        <a href="/posts?author={{ $post->author->username }}">
                           <span class="text-sm font-medium dark:text-white hover:underline">
                               {{ $post->author->name }}
                           </span>
