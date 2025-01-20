@@ -1,0 +1,39 @@
+
+==========================================  SEARCHING ===========================================
+
+-> Membuat fitur searching berdasarkan judul dari setiap routes (posts, category, author)
+-> Membuat fitur searching simpel, kita bisa searching judul dimana pun routes kita berada
+-> Membuat fitur searching kompleks, kita hanya bisa searching data berdasarkan dimana routes kita berada. contoh:
+    - Berada pada routes posts, searching judul secara umum
+    - Berada pada routes category, searching judul yang ada di category itu saja
+    - Berada pada routes author, searching judul yang ada di author itu saja
+
+======================================= TAHAPAN SEARCHING =======================================
+
+1). Membuat component search dari flowbith
+2). Tangkap data menggunakan method request('propertiName')
+3). Buat searching -> cara simple
+4). Pindahkan logic search ke model menggunakan fitur laravel query scope
+5). Menggunakan query local scope pada model https://laravel.com/docs/11.x/eloquent#local-scopes
+6). Buat searching -> cara kompleks
+7). Buat pada local scope
+
+============================================= NOTED =============================================
+
+-> method request('propertiName') digunakan untuk menangkap data yang di input '<input>'
+-> query scope digunakan untuk membuat method constraint dari query
+-> query local scope merupakan scope dari query yang di buat di model dan di panggil sebagai method :
+
+  -> model post:
+    public function scopeFilter(Builder $query): void
+    {
+        $query->where('title', 'like', '%' . request('search') . '%');
+    }
+  -> panggil di routes sebagai method filter(): 
+    Post::filter()->latest()->get()
+
+-> method when() berguna untuk mengeksekusi sebuah callback dimana kondisi dari argumen pertama nya bernilai true
+
+-> menggunakan when() memungkinkan kita mencari dua hal sekaligus, misal mencari menggunakan cari biasa + cari berdasarkan kategori/author 
+
+-> karena tabel post dan kategori memiliki relasi maka gunakan method whereHas() -> digunakan untuk melakukan query terhadap relasi yang kita punya https://laravel.com/docs/11.x/eloquent-relationships#querying-relationship-existence
