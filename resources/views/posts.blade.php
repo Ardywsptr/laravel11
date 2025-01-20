@@ -32,7 +32,7 @@
 
     <div class="max-w-screen-xl px-4 py-4 mx-auto lg:py-8 lg:px-0">
         <div class="grid gap-8 lg:grid-cols-3 md:grid-cols-2">
-          @foreach ($posts as $post)
+          @forelse ($posts as $post)
             <article class="p-6 bg-white border border-gray-200 rounded-lg shadow-md dark:bg-gray-800 dark:border-gray-700">
                 <div class="flex items-center justify-between mb-5 text-gray-500">
                   <a href="/posts?category={{ $post->category->slug }}">
@@ -61,7 +61,17 @@
                     </a>
                 </div>
             </article> 
-          @endforeach
+
+            @empty
+            .
+                  <div class="max-w-screen-sm mx-auto text-center">
+                      <h1 class="mb-4 font-extrabold tracking-tight text-7xl lg:text-9xl text-primary-600 dark:text-primary-500">Oops!</h1>
+                      <p class="mb-4 text-3xl font-bold tracking-tight text-gray-900 md:text-4xl dark:text-white">Article not found</p>
+                      <p class="mb-4 text-lg font-light text-gray-500 dark:text-gray-400">Sorry, we can't find that article. You'll find lots to explore on the home page. </p>
+                      <a href="#" class="inline-flex text-white bg-primary-600 hover:bg-primary-800 focus:ring-4 focus:outline-none focus:ring-primary-300 font-medium rounded-lg text-sm px-5 py-2.5 text-center dark:focus:ring-primary-900 my-4">Back to Homepage</a>
+                  </div>   
+              </div>
+          @endforelse
         </div>  
     </div>
 </x-layout>
