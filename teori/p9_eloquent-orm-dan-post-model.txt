@@ -1,15 +1,19 @@
 === LARAVEL ===
 
-=== pada materi ini kita membahas eloquent :
+
+=========================================== eloquent ============================================
 
 -> sebuah object relational mapper (orm) yg dimiliki laravel.
 -> berguna untuk mengelola database 
 -> tidak lagi ber interaksi dgn databse menggunakan SQL
 -> ber interaksi dgn database menggunakan fungsi bawaan eloquent
--> Eloquent bertindak sebagai perantara antara aplikasi Anda dan database. 
+-> Eloquent bertindak sebagai perantara antara aplikasi Anda dan database.
+-> ORM merupakan teknik mengubah suatu table menjadi sebuah object, sehingga mudah untuk digunakan. object yang dibuat memiliki property yang sama dengan field-field pada tabel tersebut
 
 
-=== Analogi Eloquent ORM: Pelayan di Restoran
+========================== Analogi Eloquent ORM: Pelayan di Restoran ===========================
+
+
 Bayangkan Anda pergi ke sebuah restoran untuk makan. Berikut situasinya:
 
 -> Tanpa Pelayan (SQL Manual):
@@ -24,7 +28,8 @@ Anda cukup duduk di meja, melihat menu, dan memberi tahu pelayan apa yang Anda i
 -> Anda: Representasi dari developer yang hanya perlu menggunakan fungsi-fungsi Eloquent untuk mendapatkan data.
 
 
-=== cara kerja eloquent:
+=================================== cara kerja eloquent ========================================
+
 
 -> Model: Setiap tabel di database diwakili oleh sebuah model. Misalnya, tabel users akan memiliki model User.
 
@@ -33,14 +38,16 @@ Anda cukup duduk di meja, melihat menu, dan memberi tahu pelayan apa yang Anda i
 -> Fungsi Siap Pakai: Anda bisa menggunakan fungsi bawaan untuk operasi seperti membaca, menambahkan, mengedit, atau menghapus data.
 
 
-=== Mengapa Menggunakan Eloquent?
+================================== Mengapa Menggunakan Eloquent =================================
+
 
 -> Mudah Dibaca: Kode menjadi lebih bersih dan mudah dipahami.
 -> Efisien: Tidak perlu menulis SQL query manual untuk operasi umum.
 -> Keamanan: Mencegah SQL Injection karena query dibuat secara otomatis.
 
 
-=== Kapan Harus Menulis SQL?
+=================================== Kapan Harus Menulis SQL? ===================================
+
 
 Anda hanya perlu menulis SQL jika query Anda sangat kompleks dan tidak bisa diwakili oleh fungsi bawaan Eloquent. Dalam situasi seperti itu, Anda bisa menggunakan query builder atau bahkan SQL mentah:
 
@@ -49,7 +56,8 @@ DB::select('SELECT * FROM users WHERE email = ?', ['john@example.com']);
 Namun, untuk sebagian besar kasus, Eloquent sudah cukup fleksibel dan efisien!
 
 
-=== NOTED:
+============================================ NOTED ==============================================
+
 
 -> setiap tabel mempunyai model
 -> supaya menyertakan eloquent dalam class harus extend dengan Model
