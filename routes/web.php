@@ -38,7 +38,7 @@ Route::get('/authors/{user:username}', function (User $user){
     // $posts = $user->posts->load('category', 'author');
 
     return view('posts', [
-        'title' => count($user->posts) . ' Article By : ' . $user->name,
+        'title' => $posts->total() . ' Article By : ' . $user->name,
         'posts' => $posts
     ]);
 });
