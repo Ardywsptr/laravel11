@@ -13,7 +13,7 @@ Route::get('/', function () {
 // MENGGUNAKAN STATIC METHOD UNTUK DATA POST 'Post::all()'
 Route::get('/posts', function () {
     //! lazy loading N+1 problem
-    $posts = Post::filter(request(['search']))->get();
+    $posts = Post::filter(request(['search']))->paginate(9)->withQueryString();
     //? PARENT MODEL -> Eager Loading manual
     // $posts = Post::with('category', 'author')->get();
 
@@ -33,7 +33,7 @@ Route::get('/posts/{post:slug}', function (Post $post){
 
 Route::get('/authors/{user:username}', function (User $user){
     //! lazy loading N+1 problem
-    $posts = $user->posts;
+    $posts = $user->posts()->paginate(9)->withQueryString();
     //? CHILD MODEL -> Lazy Eager Loading manual
     // $posts = $user->posts->load('category', 'author');
 
@@ -45,7 +45,7 @@ Route::get('/authors/{user:username}', function (User $user){
 
 Route::get('/categories/{category:slug}', function (Category $category){
     //! lazy loading N+1 problem
-    $posts = $category->posts;
+    $posts = $category->posts()->paginate(9)->withQueryString();
     //? CHILD MODEL -> Lazy Eager Loading manual
     // $posts = $category->posts->load('category', 'author');
     
