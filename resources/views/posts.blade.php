@@ -13,9 +13,6 @@
         </div>
     </form>
 
-    {{ $posts->links() }}
-
-
     <div class="max-w-screen-xl px-4 py-4 mx-auto lg:py-8 lg:px-0">
         <div class="grid gap-8 lg:grid-cols-3 md:grid-cols-2">
           @foreach ($posts as $post)
@@ -50,4 +47,7 @@
           @endforeach
         </div>  
     </div>
+
+    {{ $posts->links() }}
+
 </x-layout>
